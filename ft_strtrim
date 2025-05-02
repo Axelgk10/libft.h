@@ -1,0 +1,86 @@
+char	*ft_strtrim(char const	*s1, char const	*set)
+{
+	char	*ptr;
+	size_t	start;
+	size_t	end;
+
+	if (!s1 || !set)
+		return (NULL);
+	start = 0;
+	end = ft_strlen(s1);
+	while (s1[start] && ft_strchr(set, s1[start]))
+		start++;
+	while (end > start && ft_strchr(set, s1[end - 1]))
+		end--;
+	ptr = (char *)malloc(sizeof(char) * (end - start + 1));
+	if (!ptr)
+		return (NULL);
+	ft_memcpy(ptr, s1 + start, end - start);
+	ptr[end - start] = '\0';
+	return (ptr);
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "libft.h"  // Asegúrate de que "libft.h" contiene la declaración de ft_strtrim
+
+int main(void)
+{
+    // Prueba 1: Eliminar espacios de los extremos
+    const char *s1 = "   Hola Mundo!   ";
+    const char *set1 = " ";
+    char *result1 = ft_strtrim(s1, set1);
+    if (result1 != NULL)
+    {
+        printf("Prueba 1: '%s' trim('%s') = '%s'\n", s1, set1, result1);
+        free(result1);
+    }
+    else
+    {
+        printf("Prueba 1: Error en la función ft_strtrim.\n");
+    }
+
+    // Prueba 2: Eliminar caracteres de una cadena
+    const char *s2 = "**Hola Mundo!**";
+    const char *set2 = "*";
+    char *result2 = ft_strtrim(s2, set2);
+    if (result2 != NULL)
+    {
+        printf("Prueba 2: '%s' trim('%s') = '%s'\n", s2, set2, result2);
+        free(result2);
+    }
+    else
+    {
+        printf("Prueba 2: Error en la función ft_strtrim.\n");
+    }
+
+    // Prueba 3: Eliminar caracteres que no están en los extremos
+    const char *s3 = "Hola Mundo!";
+    const char *set3 = "xyz";
+    char *result3 = ft_strtrim(s3, set3);
+    if (result3 != NULL)
+    {
+        printf("Prueba 3: '%s' trim('%s') = '%s'\n", s3, set3, result3);
+        free(result3);
+    }
+    else
+    {
+        printf("Prueba 3: Error en la función ft_strtrim.\n");
+    }
+
+    // Prueba 4: Cadena vacía
+    const char *s4 = "";
+    const char *set4 = " ";
+    char *result4 = ft_strtrim(s4, set4);
+    if (result4 != NULL)
+    {
+        printf("Prueba 4: '%s' trim('%s') = '%s'\n", s4, set4, result4);
+        free(result4);
+    }
+    else
+    {
+        printf("Prueba 4: Error en la función ft_strtrim.\n");
+    }
+
+    return 0;
+}
