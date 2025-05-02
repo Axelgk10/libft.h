@@ -1,0 +1,50 @@
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	const unsigned char	*p1;
+	const unsigned char	*p2;
+
+	p1 = (const unsigned char *)s1;
+	p2 = (const unsigned char *)s2;
+	while (n--)
+	{
+		if (*p1 != *p2)
+			return (*p1 - *p2);
+		p1++;
+		p2++;
+	}
+	return (0);
+}
+
+#include <stdio.h>
+#include "libft.h"  // Asegúrate de que la declaración de ft_memcmp esté en libft.h
+
+int main(void)
+{
+    // Definir dos cadenas de caracteres para comparar
+    const char str1[] = "Hola Mundo!";
+    const char str2[] = "Hola Mundo!";
+    const char str3[] = "Hola Mundo!!";
+
+    // Comparar dos cadenas iguales
+    int result = ft_memcmp(str1, str2, 12);  // Comparar los primeros 12 caracteres
+    if (result == 0)
+        printf("Las cadenas '%s' y '%s' son iguales.\n", str1, str2);
+    else
+        printf("Las cadenas '%s' y '%s' son diferentes. Resultado: %d\n", str1, str2, result);
+
+    // Comparar dos cadenas diferentes
+    result = ft_memcmp(str1, str3, 12);  // Comparar los primeros 12 caracteres
+    if (result == 0)
+        printf("Las cadenas '%s' y '%s' son iguales.\n", str1, str3);
+    else
+        printf("Las cadenas '%s' y '%s' son diferentes. Resultado: %d\n", str1, str3, result);
+
+    // Comparar los primeros 5 caracteres de cada cadena (debido a un posible error en la cadena)
+    result = ft_memcmp(str1, str3, 5);  // Comparar los primeros 5 caracteres
+    if (result == 0)
+        printf("Las primeras 5 letras de '%s' y '%s' son iguales.\n", str1, str3);
+    else
+        printf("Las primeras 5 letras de '%s' y '%s' son diferentes. Resultado: %d\n", str1, str3, result);
+
+    return 0;
+}
