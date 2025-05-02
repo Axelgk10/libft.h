@@ -1,0 +1,46 @@
+#include "libft.h"
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char		*d;
+	const unsigned char	*s;
+
+	d = (unsigned char *) dest;
+	s = (const unsigned char *) src;
+	while (n--)
+	{
+		*d++ = *s++;
+	}
+	return (dest);
+}
+
+#include "libft.h"
+#include <stdio.h>  // Para printf
+#include <string.h>  // Para comparar con memcpy
+
+int main() {
+    // Definimos las cadenas src y dest
+    char src[] = "Hola, mundo!";
+    char dest[20];  // Un buffer lo suficientemente grande para copiar
+
+    // Usamos ft_memcpy para copiar los primeros 13 caracteres de src a dest
+    ft_memcpy(dest, src, 13);
+
+    // Imprimimos el resultado después de copiar
+    printf("Destino después de ft_memcpy: %s\n", dest);  // Debería imprimir: "Hola, mundo!"
+
+    // Para comparar, usamos la función estándar memcpy
+    char dest2[20];
+    memcpy(dest2, src, 13);  // Usamos memcpy estándar para hacer la misma operación
+
+    // Comparamos los resultados
+    printf("Destino después de memcpy: %s\n", dest2);  // Debería imprimir: "Hola, mundo!"
+
+    // Verificación adicional
+    if (strcmp(dest, dest2) == 0)
+        printf("Las cadenas son iguales.\n");
+    else
+        printf("Las cadenas son diferentes.\n");
+
+    return 0;
+}
