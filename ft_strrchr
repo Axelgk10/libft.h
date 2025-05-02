@@ -1,0 +1,48 @@
+char	*ft_strrchr(const char *s, int c)
+{
+	const char	*last_ocurrance = NULL;
+
+	while (*s)
+	{
+		if (*s == (char)c)
+			last_ocurrance = s;
+		s++;
+	}
+	if ((char)c == '\0')
+		return ((char *)s);
+	return ((char *)last_ocurrance);
+}
+
+#include <stdio.h>
+#include "libft.h" // Asegúrate de que la declaración de ft_strrchr esté en libft.h
+
+int main(void)
+{
+    const char *str = "Hola Mundo, Hola!";
+    char c = 'o';
+
+    // Buscar la última ocurrencia de 'o'
+    char *result = ft_strrchr(str, c);
+
+    // Mostrar el resultado
+    if (result)
+        printf("Última ocurrencia de '%c': '%s'\n", c, result);
+    else
+        printf("Carácter '%c' no encontrado en la cadena.\n", c);
+
+    // Probar con un carácter que no esté en la cadena
+    result = ft_strrchr(str, 'z');
+    if (result)
+        printf("Última ocurrencia de 'z': '%s'\n", result);
+    else
+        printf("Carácter 'z' no encontrado en la cadena.\n");
+
+    // Probar con el carácter nulo '\0'
+    result = ft_strrchr(str, '\0');
+    if (result)
+        printf("Última ocurrencia de '\\0': '%s'\n", result);
+    else
+        printf("Carácter '\\0' no encontrado.\n");
+
+    return 0;
+}
