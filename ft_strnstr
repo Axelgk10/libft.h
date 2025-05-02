@@ -1,0 +1,60 @@
+char	*ft_strnstr(const char *big, const char *little, size_t len)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	if (!*little)
+		return ((char *)big);
+	while (big[i] && i < len)
+	{
+		j = 0;
+		while (big [i + j] == little [j] && (i + j) < len && little[j])
+			j++;
+		if (!little[j])
+			return ((char *)&big[i]);
+		i++;
+	}
+	return (NULL);
+}
+
+#include <stdio.h>
+#include "libft.h"  // Asegúrate de que la declaración de ft_strnstr esté en libft.h
+
+int main(void)
+{
+    const char *big = "Este es un ejemplo de búsqueda en una cadena.";
+    const char *little1 = "ejemplo";
+    const char *little2 = "cadena";
+    const char *little3 = "noexiste";
+
+    // Buscar el substring 'little1' en 'big' con un límite de 30 caracteres
+    char *result1 = ft_strnstr(big, little1, 30);
+    if (result1)
+        printf("Se encontró '%s' en: %s\n", little1, result1);
+    else
+        printf("No se encontró '%s' en los primeros 30 caracteres.\n", little1);
+
+    // Buscar el substring 'little2' en 'big' con un límite de 30 caracteres
+    char *result2 = ft_strnstr(big, little2, 30);
+    if (result2)
+        printf("Se encontró '%s' en: %s\n", little2, result2);
+    else
+        printf("No se encontró '%s' en los primeros 30 caracteres.\n", little2);
+
+    // Buscar un substring que no existe (little3)
+    char *result3 = ft_strnstr(big, little3, 30);
+    if (result3)
+        printf("Se encontró '%s' en: %s\n", little3, result3);
+    else
+        printf("No se encontró '%s' en los primeros 30 caracteres.\n", little3);
+
+    // Buscar un substring que aparece después del límite de 15 caracteres
+    char *result4 = ft_strnstr(big, little1, 15);  // No debería encontrarlo en los primeros 15 caracteres
+    if (result4)
+        printf("Se encontró '%s' en: %s\n", little1, result4);
+    else
+        printf("No se encontró '%s' en los primeros 15 caracteres.\n", little1);
+
+    return 0;
+}
