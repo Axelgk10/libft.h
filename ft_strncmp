@@ -1,0 +1,50 @@
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n && s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+		{
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		}
+		i++;
+	}
+	if (i < n)
+	{
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+	return (0);
+}
+#include <stdio.h>
+#include "libft.h" // Asegúrate de que la declaración de ft_strncmp esté en libft.h
+
+int main(void)
+{
+    const char *str1 = "Hola Mundo";
+    const char *str2 = "Hola Mundo!";
+    size_t n = 12;
+
+    // Comparar las primeras 'n' letras de las dos cadenas
+    int result = ft_strncmp(str1, str2, n);
+    
+    if (result < 0)
+        printf("'%s' es menor que '%s' hasta %zu caracteres.\n", str1, str2, n);
+    else if (result > 0)
+        printf("'%s' es mayor que '%s' hasta %zu caracteres.\n", str1, str2, n);
+    else
+        printf("Las primeras %zu letras de '%s' y '%s' son iguales.\n", n, str1, str2);
+
+    // Probar con cadenas iguales
+    result = ft_strncmp("Hola", "Hola", 5);
+    if (result == 0)
+        printf("Las cadenas 'Hola' y 'Hola' son iguales.\n");
+
+    // Probar con cadenas diferentes
+    result = ft_strncmp("Hola", "Adiós", 5);
+    if (result < 0)
+        printf("'Hola' es menor que 'Adiós' hasta 5 caracteres.\n");
+
+    return 0;
+}
