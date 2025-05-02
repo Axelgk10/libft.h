@@ -1,0 +1,75 @@
+int	ft_atoi(const char *nptr)
+{
+	int	sign;
+	int	result;
+	int	i;
+
+	sign = 1;
+	result = 0;
+	i = 0;
+	while (nptr[i] == ' ' || nptr[i] == '\t' || nptr[i] == '\n'
+		|| nptr[i] == '\v' || nptr[i] == '\f' || nptr[i] == '\r')
+		i++;
+	if (nptr[i] == '-')
+	{
+		sign = -1;
+		i++;
+	}
+	else if (nptr[i] == '+')
+	{
+		i++;
+	}
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		result = result * 10 + (nptr[i] - '0');
+		i++;
+	}
+	return (result * sign);
+}
+
+#include <stdio.h>
+#include <limits.h>
+#include "libft.h"
+
+int main(void)
+{
+    // Casos normales
+    const char *str1 = "42";
+    const char *str2 = "   -42";
+    const char *str3 = "  +42";
+    const char *str4 = "00042";
+    
+    // Casos con caracteres no numéricos
+    const char *str5 = "123abc";
+    const char *str6 = "   -42abc";
+    
+    // Casos límite
+    const char *str7 = "2147483647";   // INT_MAX
+    const char *str8 = "-2147483648";  // INT_MIN
+    const char *str9 = "2147483648";   // Overflow positivo
+    const char *str10 = "-2147483649"; // Overflow negativo
+    
+    // Casos con espacios y caracteres de control
+    const char *str11 = " \t \n  123";
+    const char *str12 = "   - \t 42";
+    
+    // Imprimir resultados
+    printf("Resultado 1 (\"%s\"): %d\n", str1, ft_atoi(str1));  // 42
+    printf("Resultado 2 (\"%s\"): %d\n", str2, ft_atoi(str2));  // -42
+    printf("Resultado 3 (\"%s\"): %d\n", str3, ft_atoi(str3));  // 42
+    printf("Resultado 4 (\"%s\"): %d\n", str4, ft_atoi(str4));  // 42
+    printf("Resultado 5 (\"%s\"): %d\n", str5, ft_atoi(str5));  // 123
+    printf("Resultado 6 (\"%s\"): %d\n", str6, ft_atoi(str6));  // -42
+    
+    // Casos de overflow (valor fuera del rango de int)
+    printf("Resultado 7 (\"%s\"): %d\n", str7, ft_atoi(str7));  // 2147483647 (INT_MAX)
+    printf("Resultado 8 (\"%s\"): %d\n", str8, ft_atoi(str8));  // -2147483648 (INT_MIN)
+    printf("Resultado 9 (\"%s\"): %d\n", str9, ft_atoi(str9));  // Overflow positivo
+    printf("Resultado 10 (\"%s\"): %d\n", str10, ft_atoi(str10)); // Overflow negativo
+    
+    // Casos con caracteres de control
+    printf("Resultado 11 (\"%s\"): %d\n", str11, ft_atoi(str11));  // 123
+    printf("Resultado 12 (\"%s\"): %d\n", str12, ft_atoi(str12));  // -42
+    
+    return 0;
+}
