@@ -1,0 +1,47 @@
+#include "libft.h"
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if ((char)c == '\0')
+		return ((char *)s);
+	return (NULL);
+}
+#include <stdio.h>
+#include "libft.h" // Asegúrate de que la declaración de ft_strchr esté en libft.h
+
+int main(void)
+{
+    const char *str = "Hola Mundo, Hola!";
+    char c = 'o';
+
+    // Buscar la primera ocurrencia de 'o'
+    char *result = ft_strchr(str, c);
+
+    // Mostrar el resultado
+    if (result)
+        printf("Primera ocurrencia de '%c': '%s'\n", c, result);
+    else
+        printf("Carácter '%c' no encontrado en la cadena.\n", c);
+
+    // Probar con un carácter que no esté en la cadena
+    result = ft_strchr(str, 'z');
+    if (result)
+        printf("Primera ocurrencia de 'z': '%s'\n", result);
+    else
+        printf("Carácter 'z' no encontrado en la cadena.\n");
+
+    // Probar con el carácter nulo '\0'
+    result = ft_strchr(str, '\0');
+    if (result)
+        printf("Primera ocurrencia de '\\0': '%s'\n", result);
+    else
+        printf("Carácter '\\0' no encontrado.\n");
+
+    return 0;
+}
