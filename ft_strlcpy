@@ -1,0 +1,49 @@
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (src[i])
+		i++;
+	if (size == 0)
+		return (i);
+	while (j < size - 1 && src[j])
+	{
+		dest[j] = src[j];
+		j++;
+	}
+	dest[j] = '\0';
+	return (i);
+}
+#include <stdio.h>
+#include <string.h>  // Para comparar con la función estándar strlcpy
+
+// Declaración de ft_strlcpy
+size_t ft_strlcpy(char *dest, const char *src, size_t size);
+
+int main() {
+    // Casos de prueba
+    char dest[20];   // Un buffer de destino con espacio suficiente
+    const char *src = "Hola, mundo!";
+    
+    // Caso 1: size es mayor que la longitud de src
+    size_t result1 = ft_strlcpy(dest, src, 20);
+    printf("Caso 1 - ft_strlcpy: '%s', longitud: %zu\n", dest, result1);
+
+    // Caso 2: size es menor que la longitud de src
+    size_t result2 = ft_strlcpy(dest, src, 5);
+    printf("Caso 2 - ft_strlcpy: '%s', longitud: %zu\n", dest, result2);
+
+    // Caso 3: size es 0
+    size_t result3 = ft_strlcpy(dest, src, 0);
+    printf("Caso 3 - ft_strlcpy: '%s', longitud: %zu\n", dest, result3);
+
+    // Comparación con la función estándar strlcpy
+    char dest2[20];
+    size_t result4 = strlcpy(dest2, src, 20);  // Usamos la función estándar
+    printf("Comparación con strlcpy: '%s', longitud: %zu\n", dest2, result4);
+
+    return 0;
+}
