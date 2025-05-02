@@ -1,0 +1,91 @@
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	char	*ptr;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (start >= ft_strlen(s))
+	{
+		ptr = ft_calloc(1, sizeof(char));
+		return (ptr);
+	}
+	if (len > ft_strlen(s + start))
+		len = ft_strlen(s + start);
+	ptr = ft_calloc(len + 1, sizeof(char));
+	if (!ptr)
+		return (NULL);
+	while (i < len)
+	{
+		ptr[i] = s[start + i];
+		i++;
+	}
+	return (ptr);
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "libft.h"  // Asegúrate de que "libft.h" contiene la declaración de ft_substr
+
+int main(void)
+{
+    // Prueba 1: Obtener una subcadena normal
+    const char *original1 = "Hola, mundo!";
+    char *substr1 = ft_substr(original1, 0, 4);  // Debería devolver "Hola"
+
+    if (substr1 != NULL)
+    {
+        printf("Prueba 1: Cadena original: '%s'\n", original1);
+        printf("Prueba 1: Subcadena: '%s'\n", substr1);
+        free(substr1);  // No olvides liberar la memoria después de usarla
+    }
+    else
+    {
+        printf("Prueba 1: No se pudo obtener la subcadena.\n");
+    }
+
+    // Prueba 2: Obtener una subcadena en medio de la cadena
+    char *substr2 = ft_substr(original1, 5, 6);  // Debería devolver "mundo"
+
+    if (substr2 != NULL)
+    {
+        printf("\nPrueba 2: Cadena original: '%s'\n", original1);
+        printf("Prueba 2: Subcadena: '%s'\n", substr2);
+        free(substr2);
+    }
+    else
+    {
+        printf("Prueba 2: No se pudo obtener la subcadena.\n");
+    }
+
+    // Prueba 3: Intentar obtener una subcadena fuera de rango (start >= longitud de la cadena)
+    char *substr3 = ft_substr(original1, 20, 5);  // Debería devolver una cadena vacía
+
+    if (substr3 != NULL)
+    {
+        printf("\nPrueba 3: Cadena original: '%s'\n", original1);
+        printf("Prueba 3: Subcadena (vacía): '%s'\n", substr3);
+        free(substr3);
+    }
+    else
+    {
+        printf("Prueba 3: No se pudo obtener la subcadena.\n");
+    }
+
+    // Prueba 4: Obtener una subcadena que se ajusta al final de la cadena
+    char *substr4 = ft_substr(original1, 5, 100);  // Debería devolver "mundo!" (hasta el final)
+
+    if (substr4 != NULL)
+    {
+        printf("\nPrueba 4: Cadena original: '%s'\n", original1);
+        printf("Prueba 4: Subcadena: '%s'\n", substr4);
+        free(substr4);
+    }
+    else
+    {
+        printf("Prueba 4: No se pudo obtener la subcadena.\n");
+    }
+
+    return 0;
+}
