@@ -1,0 +1,59 @@
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
+{
+	size_t	dst_len;
+	size_t	src_len;
+	size_t	i;
+
+	dst_len = 0;
+	src_len = 0;
+	i = 0;
+	while (dst_len < size && dst[dst_len])
+		dst_len++;
+	while (src[src_len])
+		src_len++;
+	if (dst_len == size)
+		return (size + src_len);
+	while (src[i] && (dst_len + i +1) < size)
+	{
+		dst[dst_len + i] = src[i];
+		i++;
+	}
+	dst[dst_len + i] = '\0';
+	return (dst_len + src_len);
+}
+
+#include <stdio.h>
+#include <string.h>
+
+// Declaración de la función personalizada
+size_t ft_strlcat(char *dst, const char *src, size_t size);
+
+int main(void)
+{
+    char buffer1[20] = "Hola";
+    char buffer2[20] = "Hola";
+    const char *texto = ", mundo!";
+    size_t total;
+
+    // Caso 1: espacio suficiente en el buffer
+    total = ft_strlcat(buffer1, texto, sizeof(buffer1));
+    printf("Caso 1 - ft_strlcat: '%s' (longitud total: %zu)\n", buffer1, total);
+
+    // Comparación con la función estándar (si está disponible)
+    #ifdef __APPLE__  // strlcat existe en macOS
+    size_t std_total = strlcat(buffer2, texto, sizeof(buffer2));
+    printf("Comparación - strlcat: '%s' (longitud total: %zu)\n", buffer2, std_total);
+    #endif
+
+    // Caso 2: tamaño menor que la longitud de dst
+    char buffer3[5] = "Hola";
+    total = ft_strlcat(buffer3, texto, sizeof(buffer3));
+    printf("Caso 2 - ft_strlcat (sin espacio): '%s' (longitud total: %zu)\n", buffer3, total);
+
+    // Caso 3: size = 0
+    char buffer4[10] = "Hola";
+    total = ft_strlcat(buffer4, texto, 0);
+    printf("Caso 3 - ft_strlcat (size = 0): '%s' (longitud total: %zu)\n", buffer4, total);
+
+    return 0;
+}
