@@ -1,0 +1,79 @@
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	unsigned char	*ptr;
+	size_t			i;
+
+	i = 0;
+	ptr = malloc(nmemb * size);
+	if (!ptr)
+		return (NULL);
+	while (i < nmemb * size)
+		ptr[i++] = 0;
+	return (ptr);
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "libft.h"  // Asegúrate de que "libft.h" contiene la declaración de ft_calloc
+
+int main(void)
+{
+    // Prueba 1: Alocar un bloque para 5 enteros (sizeof(int) normalmente es 4 bytes)
+    size_t nmemb1 = 5;
+    size_t size1 = sizeof(int);
+    int *arr1 = ft_calloc(nmemb1, size1);
+
+    if (arr1 != NULL)
+    {
+        printf("Prueba 1: %zu enteros inicializados a cero\n", nmemb1);
+        for (size_t i = 0; i < nmemb1; i++)
+        {
+            printf("arr1[%zu] = %d\n", i, arr1[i]);  // Debería imprimir 0 para cada elemento
+        }
+        free(arr1);  // No olvides liberar la memoria después de usarla
+    }
+    else
+    {
+        printf("Prueba 1: No se pudo alocar memoria.\n");
+    }
+
+    // Prueba 2: Alocar un bloque para 3 elementos de tipo char
+    size_t nmemb2 = 3;
+    size_t size2 = sizeof(char);
+    char *arr2 = ft_calloc(nmemb2, size2);
+
+    if (arr2 != NULL)
+    {
+        printf("\nPrueba 2: %zu caracteres inicializados a cero\n", nmemb2);
+        for (size_t i = 0; i < nmemb2; i++)
+        {
+            printf("arr2[%zu] = %d\n", i, arr2[i]);  // Debería imprimir 0 para cada elemento
+        }
+        free(arr2);
+    }
+    else
+    {
+        printf("Prueba 2: No se pudo alocar memoria.\n");
+    }
+
+    // Prueba 3: Intentar alocar memoria con un tamaño de cero
+    size_t nmemb3 = 0;
+    size_t size3 = sizeof(int);
+    int *arr3 = ft_calloc(nmemb3, size3);
+
+    if (arr3 != NULL)
+    {
+        printf("\nPrueba 3: Memoria con 0 elementos.\n");
+        // Aunque no se aloca memoria para elementos, debemos comprobar que la memoria
+        // es válida (en algunos casos puede devolver NULL, pero otros entornos la pueden
+        // devolver con un puntero válido que apunta a una región de memoria válida, pero vacía)
+        printf("arr3 es un puntero válido: %p\n", (void*)arr3);
+        free(arr3);
+    }
+    else
+    {
+        printf("Prueba 3: No se pudo alocar memoria (tamaño 0).\n");
+    }
+
+    return 0;
+}
