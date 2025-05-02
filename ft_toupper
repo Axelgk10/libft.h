@@ -1,0 +1,30 @@
+#include "libft.h"
+
+int	ft_toupper(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (c - 32);
+	return (c);
+}
+
+#include <stdio.h>
+#include "libft.h" // Asegúrate de que esta declaración esté en libft.h
+
+int main(void)
+{
+	char test_chars[] = {'a', 'z', 'A', 'Z', '0', '!', 'm'};
+	int i = 0;
+
+	printf("Probando ft_toupper:\n\n");
+	while (i < (int)(sizeof(test_chars) / sizeof(char)))
+	{
+		char original = test_chars[i];
+		char converted = ft_toupper(original);
+
+		printf("Original: '%c' (%d), Convertido: '%c' (%d)\n",
+			original, original, converted, converted);
+		i++;
+	}
+
+	return 0;
+}
