@@ -1,0 +1,73 @@
+char	*ft_strdup(const char *s)
+{
+	char	*ptr;
+	size_t	i;
+	size_t	len;
+
+	i = 0;
+	len = ft_strlen(s);
+	ptr = (char *)malloc((len + 1) * sizeof(char));
+	if (!ptr)
+		return (NULL);
+	while (i < len)
+	{
+		ptr[i] = s[i];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "libft.h"  // Asegúrate de que "libft.h" contiene la declaración de ft_strdup
+
+int main(void)
+{
+    // Prueba 1: Duplicar una cadena de ejemplo
+    const char *original1 = "Hola, mundo!";
+    char *dup1 = ft_strdup(original1);
+
+    if (dup1 != NULL)
+    {
+        printf("Prueba 1: Cadena original: %s\n", original1);
+        printf("Prueba 1: Cadena duplicada: %s\n", dup1);
+        free(dup1);  // No olvides liberar la memoria después de usarla
+    }
+    else
+    {
+        printf("Prueba 1: No se pudo duplicar la cadena.\n");
+    }
+
+    // Prueba 2: Duplicar una cadena vacía
+    const char *original2 = "";
+    char *dup2 = ft_strdup(original2);
+
+    if (dup2 != NULL)
+    {
+        printf("\nPrueba 2: Cadena original (vacía): '%s'\n", original2);
+        printf("Prueba 2: Cadena duplicada: '%s'\n", dup2);
+        free(dup2);
+    }
+    else
+    {
+        printf("Prueba 2: No se pudo duplicar la cadena.\n");
+    }
+
+    // Prueba 3: Duplicar una cadena nula (en este caso deberíamos manejar el error)
+    const char *original3 = NULL;
+    char *dup3 = ft_strdup(original3);  // Esto debería devolver NULL
+
+    if (dup3 != NULL)
+    {
+        printf("\nPrueba 3: Cadena original nula: %p\n", (void *)original3);
+        printf("Prueba 3: Cadena duplicada: %s\n", dup3);
+        free(dup3);
+    }
+    else
+    {
+        printf("Prueba 3: No se pudo duplicar la cadena nula.\n");
+    }
+
+    return 0;
+}
