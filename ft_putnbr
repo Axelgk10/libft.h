@@ -1,0 +1,54 @@
+void	ft_putnbr_fd(int n, int fd)
+{
+	if (n == -2147483648)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putchar_fd('2', fd);
+		ft_putnbr_fd(147483648, fd);
+	}
+	else if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putnbr_fd(-n, fd);
+	}
+	else if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	else
+	{
+		ft_putchar_fd(n + '0', fd);
+	}
+}
+
+int	main()
+{
+	// Ejemplo 1: Escribir un número en la salida estándar (stdout)
+	ft_putnbr_fd(123456789, 1);  // 1 es el descriptor de archivo para stdout (consola)
+	write(1, "\n", 1);  // Salto de línea para separar los resultados
+
+	// Ejemplo 2: Escribir un número negativo en la salida estándar
+	ft_putnbr_fd(-987654321, 1);
+	write(1, "\n", 1);  // Salto de línea para separar los resultados
+
+	// Ejemplo 3: Escribir el número más pequeño posible para un entero de 32 bits
+	ft_putnbr_fd(-2147483648, 1);
+	write(1, "\n", 1);  // Salto de línea para separar los resultados
+
+	// Ejemplo 4: Escribir un número en un archivo
+	int file = open("output.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (file == -1)  // Si hubo un error al abrir el archivo
+	{
+		perror("Error al abrir el archivo");
+		return 1;
+	}
+
+	ft_putnbr_fd(123456789, file);  // Escribir en el archivo
+	write(file, "\n", 1);  // Agregar salto de línea al archivo
+
+	// Cerrar el archivo después de escribir
+	close(file);
+
+	return 0;
+}
