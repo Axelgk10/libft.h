@@ -1,0 +1,79 @@
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*ptr;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	ptr = (char *) malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!s1 && !s2)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		ptr[i] = s1[i];
+		i++;
+	}
+	while (s2[j] != '\0')
+	{
+		ptr[i + j] = s2[j];
+		j++;
+	}
+	while (!ptr)
+	{
+		return (NULL);
+	}
+	ptr [i + j] = '\0';
+	return (ptr);
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "libft.h"  // Asegúrate de que "libft.h" contiene la declaración de ft_strjoin
+
+int main(void)
+{
+    // Prueba 1: Concatenar dos cadenas no vacías
+    const char *s1 = "Hola, ";
+    const char *s2 = "mundo!";
+    char *result1 = ft_strjoin(s1, s2);
+    if (result1 != NULL)
+    {
+        printf("Prueba 1: '%s' + '%s' = '%s'\n", s1, s2, result1);
+        free(result1);  // Liberar la memoria después de usarla
+    }
+    else
+    {
+        printf("Prueba 1: No se pudo concatenar las cadenas.\n");
+    }
+
+    // Prueba 2: Concatenar una cadena vacía con otra
+    const char *s3 = "";
+    const char *s4 = "solo texto.";
+    char *result2 = ft_strjoin(s3, s4);
+    if (result2 != NULL)
+    {
+        printf("Prueba 2: '%s' + '%s' = '%s'\n", s3, s4, result2);
+        free(result2);
+    }
+    else
+    {
+        printf("Prueba 2: No se pudo concatenar las cadenas.\n");
+    }
+
+    // Prueba 3: Concatenar dos cadenas vacías
+    const char *s5 = "";
+    const char *s6 = "";
+    char *result3 = ft_strjoin(s5, s6);
+    if (result3 != NULL)
+    {
+        printf("Prueba 3: '%s' + '%s' = '%s'\n", s5, s6, result3);
+        free(result3);
+    }
+    else
+    {
+        printf("Prueba 3: No se pudo concatenar las cadenas.\n");
+    }
+
+    return 0;
+}
