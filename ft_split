@@ -1,4 +1,7 @@
 #include "libft.h"
+#include <stdlib.h>
+#include <stdio.h>
+
 // FUNCION EXTRA
 static int	count_words(const char *s, char c)
 {
